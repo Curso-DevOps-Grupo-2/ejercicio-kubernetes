@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-app
+  labels:
+    name: devops-app
+spec:
+  selector:
+    matchLabels:
+      app:
+        devops-app
+  template:
+    metadata:
+      labels:
+        app: devops-app
+    spec:
+      containers:
+      - name: devops-app
+        image: devops-app
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5000
+        env:
+        - name: SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: secret-values
+              key: secret_key
+        resources:
+          requests:
+            memory: 256M
+            cpu: 500m
+          limits:
+            memory: 512M
+            cpu: 1
+      restartPolicy: Always
