@@ -34,19 +34,17 @@ spec:
             memory: 512M
             cpu: 1
         livenessProbe:
-          exec:
-            command:
-            - curl
-            - localhost:5000
-          initialDelaySeconds: 5
-          periodSeconds: 5
+          httpGet:
+            path: /
+            port: 5000
+          initialDelaySeconds: 3
+          periodSeconds: 3
         readinessProbe:
-          exec:
-            command:
-            - curl
-            - localhost:5000
-          initialDelaySeconds: 5
-          periodSeconds: 5
+          httpGet:
+            path: /
+            port: 5000
+          initialDelaySeconds: 3
+          periodSeconds: 3
       restartPolicy: Always
       volumes:
       - name: empty-storage
